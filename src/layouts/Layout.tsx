@@ -1,10 +1,11 @@
 import { Outlet, Link } from "react-router-dom";
+import styles from "./styles.module.scss";
 
 const Layout = () => {
   return (
-    <div>
+    <div className={styles.layout}>
       <nav>
-        <ul>
+        <ul className={"flex"}>
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -16,7 +17,6 @@ const Layout = () => {
           </li>
         </ul>
       </nav>
-      <hr />
       <Outlet />
     </div>
   );
