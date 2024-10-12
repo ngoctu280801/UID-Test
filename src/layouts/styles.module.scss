@@ -1,3 +1,15 @@
-.layout__navigation {
-  @apply flex;
+.layout {
+  .navigation {
+    @apply flex gap-8;
+
+    &__item {
+      @apply font-semibold text-lg;
+      .active {
+        @apply text-blue-600;
+      }
+    }
+  }
+  .nav {
+    @apply flex justify-center py-5 shadow-md;
+  }
 }
