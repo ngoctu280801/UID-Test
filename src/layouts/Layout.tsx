@@ -12,7 +12,7 @@ const navigators = [
   },
   {
     path: "/create-product",
-    title: "Create A Product",
+    title: "Create Product",
   },
 ];
 
@@ -35,7 +35,9 @@ const Layout = () => {
           ))}
         </ul>
       </nav>
-      <Outlet />
+      <div className="px-10 py-5">
+        <Outlet />
+      </div>
     </div>
   );
 };
