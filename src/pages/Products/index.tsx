@@ -1,6 +1,7 @@
 import { Select, Table, Tag } from "antd";
 import React, { useMemo } from "react";
 import styles from "./styles.module.scss";
+import { useQueryParams } from "../../hooks";
 
 const products = [
   {
@@ -116,6 +117,8 @@ const getTags = (tagList: string[][]) => {
 };
 
 export const Products = () => {
+  const { appendQueryParams, queryParams } = useQueryParams();
+
   const tags = useMemo(
     () => products.map((product) => product.tags),
     [products]
@@ -126,6 +129,15 @@ export const Products = () => {
     label: tag,
   }));
 
+  const defaultValues = useMemo(
+    () =>
+      ((queryParams?.tags as string[]) || [])?.map((tag) => ({
+        label: tag,
+        value: tag,
+      })),
+    []
+  );
+
   return (
     <div className={styles.products}>
       <Select
@@ -134,6 +146,12 @@ export const Products = () => {
         options={tagOptions}
         style={{ width: "100%" }}
         mode="multiple"
+        defaultValue={defaultValues}
+        onChange={(tags) => {
+          appendQueryParams({
+            tags: tags?.map((tag: { value: string }) => tag.value),
+          });
+        }}
       />
       <Table columns={columns} dataSource={products} />
     </div>
