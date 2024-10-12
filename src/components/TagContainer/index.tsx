@@ -1,11 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useRef, useState } from "react";
 import type { InputRef } from "antd";
 import { Input, Tag } from "antd";
 import { FieldWrapper } from "../FieldWrapper";
 
-export const TagContainer = ({ label }: { label: string }) => {
-  const [tags, setTags] = useState(["Tag 1", "Tag 2", "Tag 3"]);
+export const TagContainer = ({
+  label,
+  onChange,
+}: {
+  label: string;
+  onChange: (tags: string[]) => void;
+}) => {
+  const [tags, setTags] = useState<string[]>([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<InputRef>(null);
@@ -27,12 +32,16 @@ export const TagContainer = ({ label }: { label: string }) => {
   };
 
   const handleInputConfirm = () => {
-    if (inputValue && tags.indexOf(inputValue) === -1) {
+    if (inputValue && tags && tags.includes(inputValue)) {
       setTags([...tags, inputValue]);
     }
     setInputVisible(false);
     setInputValue("");
   };
+
+  useEffect(() => {
+    onChange(tags);
+  }, [onChange, tags]);
 
   return (
     <FieldWrapper label={label}>

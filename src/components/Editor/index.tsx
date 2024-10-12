@@ -3,11 +3,12 @@ import { FieldWrapper } from "../FieldWrapper";
 
 export type TEditorProps = {
   label: string;
+  error?: string;
 } & IAllProps;
 
-export const Editor = ({ label, ...props }: TEditorProps) => {
+export const Editor = ({ label, error, ...props }: TEditorProps) => {
   return (
-    <FieldWrapper label={label}>
+    <FieldWrapper label={label} error={error}>
       <TinyEditor
         apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         init={{
@@ -24,6 +25,7 @@ export const Editor = ({ label, ...props }: TEditorProps) => {
             "alignright alignjustify | bullist numlist outdent indent | " +
             "removeformat | help",
         }}
+        onChange={(e) => console.log("change", e)}
         {...props}
       />
     </FieldWrapper>

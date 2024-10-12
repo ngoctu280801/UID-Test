@@ -9,6 +9,8 @@ type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 type TUploadProps = {
   label: string;
+  error?: string;
+  onChange: (files: UploadFile<File>[]) => void;
 };
 
 const getBase64 = (file: FileType): Promise<string> =>
@@ -19,7 +21,7 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(error);
   });
 
-export const Upload = ({ label }: TUploadProps) => {
+export const Upload = ({ label, onChange, error }: TUploadProps) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -33,8 +35,10 @@ export const Upload = ({ label }: TUploadProps) => {
     setPreviewOpen(true);
   };
 
-  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) =>
+  const handleChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+    onChange(newFileList);
+  };
 
   const uploadButton = (
     <button style={{ border: 0, background: "none" }} type="button">
@@ -51,9 +55,8 @@ export const Upload = ({ label }: TUploadProps) => {
   };
   return (
     <>
-      <FieldWrapper label={label}>
+      <FieldWrapper label={label} error={error}>
         <UploadAntd
-          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
           listType="picture-card"
           fileList={fileList}
           onPreview={handlePreview}
