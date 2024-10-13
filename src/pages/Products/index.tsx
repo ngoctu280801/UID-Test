@@ -1,51 +1,11 @@
 import { Select, Table, TablePaginationConfig, Tag } from "antd";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 import { useQueryParams } from "../../hooks";
 import useProductApi from "../../hooks/useProductApi";
 import { Spinner } from "../../components";
-
-const columns = [
-  {
-    title: "Image",
-    dataIndex: "images",
-    key: "image",
-    render: (images: string) => (
-      <img src={images[0]} alt="Product" width={50} />
-    ),
-  },
-  {
-    title: "Product Title",
-    dataIndex: "title",
-    key: "title",
-    render: (title: string) => (
-      <span>{title.length > 50 ? title.slice(0, 50) + "..." : title}</span>
-    ),
-  },
-  {
-    title: "Price",
-    dataIndex: "price",
-    key: "price",
-    render: (price: number) => <span>${price.toFixed(2)}</span>,
-  },
-  {
-    title: "Product Type",
-    dataIndex: "productType",
-    key: "productType",
-  },
-  {
-    title: "Tags",
-    dataIndex: "tags",
-    key: "tags",
-    render: (tags: string[]) => (
-      <>
-        {tags.map((tag) => (
-          <Tag key={tag}>{tag}</Tag>
-        ))}
-      </>
-    ),
-  },
-];
+import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteModal } from "./DeleteModal";
 
 const getTags = (tagList: string[][]) => {
   let result: string[] = [];
@@ -56,6 +16,9 @@ const getTags = (tagList: string[][]) => {
 };
 
 export const Products = () => {
+  const [open, setOpen] = useState(false);
+  const [productId, setProductId] = useState<number>();
+
   const { appendQueryParams, queryParams } = useQueryParams();
 
   const defaultValues = useMemo(
@@ -67,7 +30,7 @@ export const Products = () => {
     []
   );
 
-  const { products, error, loading } = useProductApi({
+  const { products, error, loading, deleteProduct } = useProductApi({
     tags: (queryParams?.tags as string[]) || undefined,
   });
 
@@ -84,6 +47,78 @@ export const Products = () => {
   const onChange = (pagination: TablePaginationConfig) => {
     appendQueryParams({ page: pagination.current });
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = (productId: number) => {
+    deleteProduct(productId);
+    handleClose();
+  };
+
+  const handleOpenModal = (productId: number) => {
+    setOpen(true);
+    setProductId(productId);
+  };
+
+  const columns = useMemo(
+    () => [
+      {
+        title: "Image",
+        dataIndex: "images",
+        key: "image",
+        render: (images: string) => (
+          <img src={images[0]} alt="Product" width={50} />
+        ),
+      },
+      {
+        title: "Product Title",
+        dataIndex: "title",
+        key: "title",
+        render: (title: string) => (
+          <span>{title.length > 50 ? title.slice(0, 50) + "..." : title}</span>
+        ),
+      },
+      {
+        title: "Price",
+        dataIndex: "price",
+        key: "price",
+        render: (price: number) => <span>${price.toFixed(2)}</span>,
+      },
+      {
+        title: "Product Type",
+        dataIndex: "productType",
+        key: "productType",
+      },
+      {
+        title: "Tags",
+        dataIndex: "tags",
+        key: "tags",
+        render: (tags: string[]) => (
+          <>
+            {tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </>
+        ),
+      },
+      {
+        dataIndex: "id",
+        key: "id",
+        // align: "center",
+        render: (id: number) => (
+          <button
+            className={styles["delete-btn"]}
+            onClick={() => handleOpenModal(id)}
+          >
+            <DeleteOutlined />
+          </button>
+        ),
+      },
+    ],
+    []
+  );
 
   if (loading) return <Spinner />;
 
@@ -112,6 +147,11 @@ export const Products = () => {
           current: (queryParams?.page as number) || 1,
         }}
         onChange={onChange}
+      />
+      <DeleteModal
+        handleConfirm={() => handleDelete(productId as number)}
+        open={open}
+        handleClose={handleClose}
       />
     </div>
   );

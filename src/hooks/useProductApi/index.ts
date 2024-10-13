@@ -6,6 +6,7 @@ import {
   fetchProducts,
   ProductState,
   setProductsAsync,
+  deleteProductAsync,
 } from "../../redux/productSlice";
 import { Product } from "../../interfaces";
 
@@ -15,6 +16,7 @@ const useProductApi = ({
   tags?: string[];
 }): ProductState & {
   addProduct: (newProduct: Product) => void;
+  deleteProduct: (productId: number) => void;
 } => {
   const dispatch: AppDispatch = useDispatch();
 
@@ -45,12 +47,17 @@ const useProductApi = ({
     await dispatch(addProductAsync(newProduct)).unwrap();
   };
 
+  const deleteProduct = async (productId: number) => {
+    await dispatch(deleteProductAsync(productId)).unwrap();
+  };
+
   return {
     products: filteredProducts,
     status,
     error,
     loading,
     addProduct,
+    deleteProduct,
   };
 };
 

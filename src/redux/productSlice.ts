@@ -45,6 +45,17 @@ export const setProductsAsync = createAsyncThunk<Product[], Product[]>(
   }
 );
 
+export const deleteProductAsync = createAsyncThunk<number, number>(
+  "products/deleteProduct",
+  async (productId) => {
+    return await new Promise<number>((resolve) => {
+      setTimeout(() => {
+        resolve(productId);
+      }, 1000);
+    });
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState,
@@ -54,6 +65,12 @@ const productSlice = createSlice({
     },
     addProduct(state, action: PayloadAction<Product>) {
       state.products.push(action.payload);
+      localStorage.setItem("products", JSON.stringify(state.products));
+    },
+    deleteProduct(state, action: PayloadAction<number>) {
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload
+      );
       localStorage.setItem("products", JSON.stringify(state.products));
     },
   },
@@ -100,6 +117,24 @@ const productSlice = createSlice({
       .addCase(setProductsAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to set products";
+        state.loading = false;
+      })
+      .addCase(deleteProductAsync.pending, (state) => {
+        state.status = "loading";
+
+        state.loading = true;
+      })
+      .addCase(deleteProductAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.products = state.products.filter(
+          (product) => product.id !== action.payload
+        );
+        localStorage.setItem("products", JSON.stringify(state.products));
+        state.loading = false;
+      })
+      .addCase(deleteProductAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to delete product";
         state.loading = false;
       });
   },
