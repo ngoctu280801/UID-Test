@@ -3,6 +3,7 @@ import {
   CurrencyInput,
   Editor,
   Input,
+  Spinner,
   TagContainer,
   Upload,
 } from "../../components";
@@ -60,7 +61,7 @@ export const CreateProduct = () => {
     }
   };
 
-  if (loading) return <div>...Loading</div>;
+  if (loading) return <Spinner />;
 
   return (
     <FormProvider {...methods}>

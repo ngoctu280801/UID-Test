@@ -4,6 +4,7 @@ import Layout from "./layouts/Layout";
 import "./index.scss";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { Spinner } from "./components";
 
 const Home = lazy(() => import("./pages/Home"));
 const Products = lazy(() => import("./pages/Products"));
@@ -13,7 +14,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />

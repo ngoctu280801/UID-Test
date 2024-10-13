@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import { useQueryParams } from "../../hooks";
 import useProductApi from "../../hooks/useProductApi";
 import withLoadingIndicator from "../../components/HOCs/withLoadingIndicator";
+import { Spinner } from "../../components";
 
 const columns = [
   {
@@ -67,7 +68,7 @@ export const Products = () => {
     []
   );
 
-  const { products, error } = useProductApi({
+  const { products, error, loading } = useProductApi({
     tags: (queryParams?.tags as string[]) || undefined,
   });
 
@@ -85,7 +86,10 @@ export const Products = () => {
     appendQueryParams({ page: pagination.current });
   };
 
+  if (loading) return <Spinner />;
+
   if (error) return <div>Error: {error}</div>;
+
   return (
     <div className={styles.products}>
       <Select

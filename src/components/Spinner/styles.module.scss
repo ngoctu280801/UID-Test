@@ -1,0 +1,13 @@
+.page-overlay-wrapper {
+  @apply fixed w-full h-full top-0 left-0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.5);
+}
+.spinner {
+  @apply text-center absolute top-1/2 left-1/2;
+  transform: translate(-50%, -50%);
+
+  span {
+    font-size: 80px !important;
+  }
+}
