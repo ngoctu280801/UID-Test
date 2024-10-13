@@ -1,7 +1,6 @@
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { Editor, Input, TagContainer, Upload } from "../../components";
-import { Select } from "../../components/Select";
-import { CATEGORIES } from "../../constants";
+
 import styles from "./styles.module.scss";
 import { Button } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -87,13 +86,7 @@ export const CreateProduct = () => {
           error={errors?.media?.message}
           onChange={(files) => setValue("media", files)}
         />
-        <Controller
-          name="category"
-          control={control}
-          render={({ field }) => (
-            <Select options={CATEGORIES} label="Category" {...field} />
-          )}
-        />
+
         <Controller
           name="pricing"
           control={control}
