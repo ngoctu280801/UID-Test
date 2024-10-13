@@ -22,14 +22,14 @@ const useProductApi = ({
     (state: RootState) => state.products
   );
 
+  const savedProducts = localStorage.getItem("products");
   useEffect(() => {
-    const savedProducts = localStorage.getItem("products");
     if (savedProducts) {
       dispatch(setProductsAsync(JSON.parse(savedProducts)));
     } else {
       dispatch(fetchProducts());
     }
-  }, [dispatch]);
+  }, [dispatch, savedProducts]);
 
   const isExistedTag = (tags1: string[], tags2: string[]) => {
     return tags1.some((tag) => tags2.includes(tag));
@@ -41,12 +41,12 @@ const useProductApi = ({
       : products;
   }, [tags, products]);
 
-  const addProduct = (newProduct: Product) => {
-    dispatch(addProductAsync(newProduct));
+  const addProduct = async (newProduct: Product) => {
+    await dispatch(addProductAsync(newProduct)).unwrap();
   };
 
   return {
-    products: [...filteredProducts].reverse(),
+    products: filteredProducts,
     status,
     error,
     loading,

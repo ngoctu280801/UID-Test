@@ -54,7 +54,7 @@ export const CreateProduct = () => {
         price: data.pricing,
         id: Math.random(),
       };
-      await addProduct(formatData);
+      addProduct(formatData);
       navigate("/products");
     } catch (error) {
       console.error(error);

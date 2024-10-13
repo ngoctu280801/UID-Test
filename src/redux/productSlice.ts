@@ -20,7 +20,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async () => {
     const products = await fetchMockProducts();
-    return products.reverse(); //latest;
+    return products; //latest;
   }
 );
 
@@ -79,7 +79,7 @@ const productSlice = createSlice({
       })
       .addCase(addProductAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products.push(action.payload);
+        state.products = [action.payload, ...state.products];
 
         localStorage.setItem("products", JSON.stringify(state.products));
         state.loading = false;
