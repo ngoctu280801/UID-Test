@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import styles from "./styles.module.scss";
 import { useQueryParams } from "../../hooks";
 import useProductApi from "../../hooks/useProductApi";
-import withLoadingIndicator from "../../components/HOCs/withLoadingIndicator";
 import { Spinner } from "../../components";
 
 const columns = [
@@ -118,4 +117,4 @@ export const Products = () => {
   );
 };
 
-export default withLoadingIndicator(Products);
+export default Products;
