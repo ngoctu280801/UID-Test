@@ -18,12 +18,17 @@ export const Editor = ({ label, error, ...props }: TEditorProps) => {
             "advlist autolink lists link image charmap print preview anchor",
             "searchreplace visualblocks code fullscreen",
             "insertdatetime media table paste code help wordcount",
+            "code",
+            "media",
+            "image",
           ],
           toolbar:
             "undo redo | formatselect | " +
             "bold italic backcolor | alignleft aligncenter " +
-            "alignright alignjustify | bullist numlist outdent indent | " +
-            "removeformat | help",
+            "removeformat | help | image media | code",
+          file_picker_types: "image media", // Allow both images and videos
+          automatic_uploads: true,
+          images_upload_url: "", //upload
         }}
         onChange={(e) => console.log("change", e)}
         {...props}
