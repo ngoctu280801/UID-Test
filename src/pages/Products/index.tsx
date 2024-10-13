@@ -1,4 +1,4 @@
-import { Select, Table, Tag } from "antd";
+import { Select, Table, TablePaginationConfig, Tag } from "antd";
 import { useMemo } from "react";
 import styles from "./styles.module.scss";
 import { useQueryParams } from "../../hooks";
@@ -66,7 +66,9 @@ export const Products = () => {
     []
   );
 
-  const { products, error, loading } = useFetchProducts();
+  const { products, error, loading } = useFetchProducts({
+    tags: (queryParams?.tags as string[]) || undefined,
+  });
 
   const tags = useMemo(
     () => products.map((product) => product.tags),
@@ -77,6 +79,10 @@ export const Products = () => {
     value: tag,
     label: tag,
   }));
+
+  const onChange = (pagination: TablePaginationConfig) => {
+    appendQueryParams({ page: pagination.current });
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -95,7 +101,15 @@ export const Products = () => {
           });
         }}
       />
-      <Table columns={columns} dataSource={products} />
+      <Table
+        columns={columns}
+        dataSource={products}
+        pagination={{
+          pageSize: 10,
+          current: (queryParams?.page as number) || 1,
+        }}
+        onChange={onChange}
+      />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import {
@@ -7,7 +7,7 @@ import {
   setProducts,
 } from "../../redux/productSlice";
 
-const useFetchProducts = (): ProductState => {
+const useFetchProducts = ({ tags }: { tags?: string[] }): ProductState => {
   const dispatch: AppDispatch = useDispatch();
 
   const { products, status, error, loading } = useSelector(
@@ -23,7 +23,17 @@ const useFetchProducts = (): ProductState => {
     }
   }, [dispatch]);
 
-  return { products, status, error, loading };
+  const isExistedTag = (tags1: string[], tags2: string[]) => {
+    return tags1.some((tag) => tags2.includes(tag));
+  };
+
+  const filteredProducts = useMemo(() => {
+    return tags
+      ? products?.filter((product) => isExistedTag(product.tags, tags))
+      : products;
+  }, [tags, products]);
+
+  return { products: filteredProducts, status, error, loading };
 };
 
 export default useFetchProducts;

@@ -6,7 +6,7 @@
       "description": "This is the description for product one.",
       "price": 28.927223588875695,
       "productType": "Type A",
-      "tags": ["tag1", "tag2", "tag1"],
+      "tags": ["tag1", "tag2"],
       "images": [
         "https://via.placeholder.com/150/92c952",
         "https://via.placeholder.com/150/771796"
@@ -18,7 +18,7 @@
       "description": "This is the description for product two.",
       "price": 37.00407774917494,
       "productType": "Type B",
-      "tags": ["tag2", "tag3", "tag2"],
+      "tags": ["tag2", "tag3"],
       "images": [
         "https://via.placeholder.com/150/24f355",
         "https://via.placeholder.com/150/d32776"
@@ -42,7 +42,7 @@
       "description": "This is the description for product four.",
       "price": 48.52122178224313,
       "productType": "Type C",
-      "tags": ["tag3", "tag4", "tag4"],
+      "tags": ["tag3", "tag4"],
       "images": [
         "https://via.placeholder.com/150/4cae4c",
         "https://via.placeholder.com/150/c2c2c2"
@@ -78,7 +78,7 @@
       "description": "This is the description for product three.",
       "price": 18.319806136936478,
       "productType": "Type A",
-      "tags": ["tag1", "tag4", "tag4"],
+      "tags": ["tag1", "tag4"],
       "images": [
         "https://via.placeholder.com/150/f66b20",
         "https://via.placeholder.com/150/56a8c2"
@@ -90,7 +90,7 @@
       "description": "This is the description for product four.",
       "price": 48.55466010096399,
       "productType": "Type C",
-      "tags": ["tag3", "tag4", "tag4"],
+      "tags": ["tag3", "tag4"],
       "images": [
         "https://via.placeholder.com/150/4cae4c",
         "https://via.placeholder.com/150/c2c2c2"
@@ -114,7 +114,7 @@
       "description": "This is the description for product two.",
       "price": 36.54401077590505,
       "productType": "Type B",
-      "tags": ["tag2", "tag3", "tag1"],
+      "tags": ["tag2", "tag3"],
       "images": [
         "https://via.placeholder.com/150/24f355",
         "https://via.placeholder.com/150/d32776"
@@ -126,7 +126,7 @@
       "description": "This is the description for product three.",
       "price": 18.79666287972097,
       "productType": "Type A",
-      "tags": ["tag1", "tag4", "tag1"],
+      "tags": ["tag1", "tag4"],
       "images": [
         "https://via.placeholder.com/150/f66b20",
         "https://via.placeholder.com/150/56a8c2"
@@ -150,7 +150,7 @@
       "description": "This is the description for product one.",
       "price": 28.004889355426336,
       "productType": "Type A",
-      "tags": ["tag1", "tag2", "tag1"],
+      "tags": ["tag1", "tag2"],
       "images": [
         "https://via.placeholder.com/150/92c952",
         "https://via.placeholder.com/150/771796"
@@ -174,7 +174,7 @@
       "description": "This is the description for product three.",
       "price": 19.88881023349161,
       "productType": "Type A",
-      "tags": ["tag1", "tag4", "tag1"],
+      "tags": ["tag1", "tag4"],
       "images": [
         "https://via.placeholder.com/150/f66b20",
         "https://via.placeholder.com/150/56a8c2"
@@ -198,7 +198,7 @@
       "description": "This is the description for product one.",
       "price": 28.34186954737761,
       "productType": "Type A",
-      "tags": ["tag1", "tag2", "tag1"],
+      "tags": ["tag1", "tag2"],
       "images": [
         "https://via.placeholder.com/150/92c952",
         "https://via.placeholder.com/150/771796"
@@ -222,7 +222,7 @@
       "description": "This is the description for product three.",
       "price": 19.253356161338285,
       "productType": "Type A",
-      "tags": ["tag1", "tag4", "tag1"],
+      "tags": ["tag1", "tag4"],
       "images": [
         "https://via.placeholder.com/150/f66b20",
         "https://via.placeholder.com/150/56a8c2"
@@ -246,7 +246,7 @@
       "description": "This is the description for product one.",
       "price": 27.723299146560116,
       "productType": "Type A",
-      "tags": ["tag1", "tag2", "tag2"],
+      "tags": ["tag1", "tag2"],
       "images": [
         "https://via.placeholder.com/150/92c952",
         "https://via.placeholder.com/150/771796"
@@ -258,7 +258,7 @@
       "description": "This is the description for product two.",
       "price": 38.87519007510795,
       "productType": "Type B",
-      "tags": ["tag2", "tag3", "tag2"],
+      "tags": ["tag2", "tag3"],
       "images": [
         "https://via.placeholder.com/150/24f355",
         "https://via.placeholder.com/150/d32776"
@@ -294,7 +294,7 @@
       "description": "This is the description for product one.",
       "price": 29.43243301475089,
       "productType": "Type A",
-      "tags": ["tag1", "tag2", "tag2"],
+      "tags": ["tag1", "tag2"],
       "images": [
         "https://via.placeholder.com/150/92c952",
         "https://via.placeholder.com/150/771796"
@@ -306,7 +306,7 @@
       "description": "This is the description for product two.",
       "price": 38.41654789577391,
       "productType": "Type B",
-      "tags": ["tag2", "tag3", "tag2"],
+      "tags": ["tag2", "tag3"],
       "images": [
         "https://via.placeholder.com/150/24f355",
         "https://via.placeholder.com/150/d32776"
@@ -342,7 +342,7 @@
       "description": "This is the description for product one.",
       "price": 29.94824515192356,
       "productType": "Type A",
-      "tags": ["tag1", "tag2", "tag2"],
+      "tags": ["tag1", "tag2"],
       "images": [
         "https://via.placeholder.com/150/92c952",
         "https://via.placeholder.com/150/771796"
@@ -354,7 +354,7 @@
       "description": "This is the description for product two.",
       "price": 39.26356245485613,
       "productType": "Type B",
-      "tags": ["tag2", "tag3", "tag3"],
+      "tags": ["tag2", "tag3"],
       "images": [
         "https://via.placeholder.com/150/24f355",
         "https://via.placeholder.com/150/d32776"
@@ -378,7 +378,7 @@
       "description": "This is the description for product four.",
       "price": 45.15358376129133,
       "productType": "Type C",
-      "tags": ["tag3", "tag4", "tag3"],
+      "tags": ["tag3", "tag4"],
       "images": [
         "https://via.placeholder.com/150/4cae4c",
         "https://via.placeholder.com/150/c2c2c2"
@@ -390,7 +390,7 @@
       "description": "This is the description for product one.",
       "price": 29.513017259488684,
       "productType": "Type A",
-      "tags": ["tag1", "tag2", "tag3"],
+      "tags": ["tag1", "tag2"],
       "images": [
         "https://via.placeholder.com/150/92c952",
         "https://via.placeholder.com/150/771796"
@@ -402,7 +402,7 @@
       "description": "This is the description for product two.",
       "price": 39.29350937920035,
       "productType": "Type B",
-      "tags": ["tag2", "tag3", "tag3"],
+      "tags": ["tag2", "tag3"],
       "images": [
         "https://via.placeholder.com/150/24f355",
         "https://via.placeholder.com/150/d32776"
@@ -426,7 +426,7 @@
       "description": "This is the description for product four.",
       "price": 46.561849584120225,
       "productType": "Type C",
-      "tags": ["tag3", "tag4", "tag3"],
+      "tags": ["tag3", "tag4"],
       "images": [
         "https://via.placeholder.com/150/4cae4c",
         "https://via.placeholder.com/150/c2c2c2"
@@ -450,7 +450,7 @@
       "description": "This is the description for product two.",
       "price": 37.01256372703871,
       "productType": "Type B",
-      "tags": ["tag2", "tag3", "tag3"],
+      "tags": ["tag2", "tag3"],
       "images": [
         "https://via.placeholder.com/150/24f355",
         "https://via.placeholder.com/150/d32776"
@@ -522,7 +522,7 @@
       "description": "This is the description for product four.",
       "price": 46.44359228768817,
       "productType": "Type C",
-      "tags": ["tag3", "tag4", "tag4"],
+      "tags": ["tag3", "tag4"],
       "images": [
         "https://via.placeholder.com/150/4cae4c",
         "https://via.placeholder.com/150/c2c2c2"
