@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import styles from "./styles.module.scss";
 import { FieldTitle } from "../FieldTitle";
 import { IFieldProps } from "../../interfaces";
