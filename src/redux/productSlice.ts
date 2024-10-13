@@ -35,6 +35,16 @@ export const addProductAsync = createAsyncThunk<Product, Product>(
   }
 );
 
+export const setProductsAsync = createAsyncThunk<Product[], Product[]>(
+  "products/setProducts",
+  async (products, { dispatch }) => {
+    // Simulate loading
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    dispatch(setProducts(products));
+    return products;
+  }
+);
+
 const productSlice = createSlice({
   name: "product",
   initialState,
@@ -51,27 +61,46 @@ const productSlice = createSlice({
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.status = "loading";
+        state.loading = true;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.products = action.payload;
+        state.loading = false;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch products";
+        state.loading = false;
       })
       .addCase(addProductAsync.pending, (state) => {
         state.status = "loading";
+        state.loading = true;
       })
       .addCase(addProductAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products.push(action.payload); // Add the new product to the state
-        // Optionally update local storage
+        state.products.push(action.payload);
+
         localStorage.setItem("products", JSON.stringify(state.products));
+        state.loading = false;
       })
       .addCase(addProductAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to add product";
+        state.loading = false;
+      })
+      .addCase(setProductsAsync.pending, (state) => {
+        state.status = "loading";
+        state.loading = true;
+      })
+      .addCase(setProductsAsync.fulfilled, (state) => {
+        state.status = "succeeded";
+        state.loading = false;
+      })
+      .addCase(setProductsAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to set products";
+        state.loading = false;
       });
   },
 });

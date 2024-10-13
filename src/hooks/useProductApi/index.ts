@@ -5,7 +5,7 @@ import {
   addProductAsync,
   fetchProducts,
   ProductState,
-  setProducts,
+  setProductsAsync,
 } from "../../redux/productSlice";
 import { Product } from "../../interfaces";
 
@@ -25,7 +25,7 @@ const useProductApi = ({
   useEffect(() => {
     const savedProducts = localStorage.getItem("products");
     if (savedProducts) {
-      dispatch(setProducts(JSON.parse(savedProducts)));
+      dispatch(setProductsAsync(JSON.parse(savedProducts)));
     } else {
       dispatch(fetchProducts());
     }
@@ -41,8 +41,8 @@ const useProductApi = ({
       : products;
   }, [tags, products]);
 
-  const addProduct = async (newProduct: Product) => {
-    await dispatch(addProductAsync(newProduct));
+  const addProduct = (newProduct: Product) => {
+    dispatch(addProductAsync(newProduct));
   };
 
   return {

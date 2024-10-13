@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import styles from "./styles.module.scss";
 import { useQueryParams } from "../../hooks";
 import useProductApi from "../../hooks/useProductApi";
+import withLoadingIndicator from "../../components/HOCs/withLoadingIndicator";
 
 const columns = [
   {
@@ -66,7 +67,7 @@ export const Products = () => {
     []
   );
 
-  const { products, error, loading } = useProductApi({
+  const { products, error } = useProductApi({
     tags: (queryParams?.tags as string[]) || undefined,
   });
 
@@ -84,7 +85,6 @@ export const Products = () => {
     appendQueryParams({ page: pagination.current });
   };
 
-  if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   return (
     <div className={styles.products}>
@@ -114,4 +114,4 @@ export const Products = () => {
   );
 };
 
-export default Products;
+export default withLoadingIndicator(Products);
