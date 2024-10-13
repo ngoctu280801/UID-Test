@@ -8,7 +8,7 @@ export const Editor = ({ label, error, required, ...props }: EditorProps) => {
   return (
     <FieldWrapper label={label} error={error} required={required}>
       <TinyEditor
-        apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
+        apiKey="d52j67hsia1nas1esxry13b9b5yua8okt9l1h8dyx03od7eo"
         init={{
           height: 400,
           menubar: false,
