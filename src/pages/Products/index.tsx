@@ -1,70 +1,8 @@
 import { Select, Table, Tag } from "antd";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import styles from "./styles.module.scss";
 import { useQueryParams } from "../../hooks";
-
-const products = [
-  {
-    id: 1,
-    title: "Product One",
-    description: "This is the description for product one.",
-    price: 29.99,
-    productType: "Type A",
-    tags: ["tag1", "tag2"],
-    images: [
-      "https://via.placeholder.com/150/92c952",
-      "https://via.placeholder.com/150/771796",
-    ],
-  },
-  {
-    id: 2,
-    title: "Product Two",
-    description: "This is the description for product two.",
-    price: 39.99,
-    productType: "Type B",
-    tags: ["tag2", "tag3"],
-    images: [
-      "https://via.placeholder.com/150/24f355",
-      "https://via.placeholder.com/150/d32776",
-    ],
-  },
-  {
-    id: 3,
-    title: "Product Three",
-    description: "This is the description for product three.",
-    price: 19.99,
-    productType: "Type A",
-    tags: ["tag1", "tag4"],
-    images: [
-      "https://via.placeholder.com/150/f66b20",
-      "https://via.placeholder.com/150/56a8c2",
-    ],
-  },
-  {
-    id: 4,
-    title: "Product Four",
-    description: "This is the description for product four.",
-    price: 49.99,
-    productType: "Type C",
-    tags: ["tag3", "tag4"],
-    images: [
-      "https://via.placeholder.com/150/4cae4c",
-      "https://via.placeholder.com/150/c2c2c2",
-    ],
-  },
-  {
-    id: 5,
-    title: "Product Five",
-    description: "This is the description for product five.",
-    price: 99.99,
-    productType: "Type D",
-    tags: ["tag1", "tag2", "tag5"],
-    images: [
-      "https://via.placeholder.com/150/5c4d7a",
-      "https://via.placeholder.com/150/6b9bd1",
-    ],
-  },
-];
+import useFetchProducts from "../../hooks/useFetchProducts";
 
 const columns = [
   {
@@ -119,6 +57,17 @@ const getTags = (tagList: string[][]) => {
 export const Products = () => {
   const { appendQueryParams, queryParams } = useQueryParams();
 
+  const defaultValues = useMemo(
+    () =>
+      ((queryParams?.tags as string[]) || [])?.map((tag) => ({
+        label: tag,
+        value: tag,
+      })),
+    []
+  );
+
+  const { products, error, loading } = useFetchProducts();
+
   const tags = useMemo(
     () => products.map((product) => product.tags),
     [products]
@@ -129,15 +78,8 @@ export const Products = () => {
     label: tag,
   }));
 
-  const defaultValues = useMemo(
-    () =>
-      ((queryParams?.tags as string[]) || [])?.map((tag) => ({
-        label: tag,
-        value: tag,
-      })),
-    []
-  );
-
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
   return (
     <div className={styles.products}>
       <Select
