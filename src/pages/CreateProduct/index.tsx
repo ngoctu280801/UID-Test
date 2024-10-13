@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { Editor, Input, TagContainer, Upload } from "../../components";
 import { Select } from "../../components/Select";
@@ -7,25 +6,61 @@ import styles from "./styles.module.scss";
 import { Button } from "antd";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./schema";
+import useProductApi from "../../hooks/useProductApi";
+import { useNavigate } from "react-router-dom";
 
 export const CreateProduct = () => {
   const methods = useForm({
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
+  const navigate = useNavigate();
+  const { addProduct, loading } = useProductApi({});
 
   const {
     control,
     setValue,
     handleSubmit,
     formState: { errors },
+    watch,
   } = methods;
+
+  const onSubmit = async (data: {
+    category?: string;
+    tags?: string[];
+    productType?: string;
+    title: string;
+    description: string;
+    media: File[];
+    pricing: number;
+  }) => {
+    try {
+      const formatData = {
+        tags: data.tags || [],
+        productType: data.productType || "",
+        title: data.title,
+        description: data.description, // will upload file when have real api
+        images: [
+          "https://via.placeholder.com/150/92c952",
+          "https://via.placeholder.com/150/771796",
+        ], // will upload image and get url when have real api
+        price: data.pricing,
+        id: Math.random(),
+      };
+      await addProduct(formatData);
+      navigate("/products");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (loading) return <div>...Loading</div>;
 
   return (
     <FormProvider {...methods}>
       <form
         className={styles["create-product"]}
-        onSubmit={handleSubmit((data) => console.log("submit", data))}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <Controller
           name="title"
@@ -50,7 +85,7 @@ export const CreateProduct = () => {
         <Upload
           label="Media"
           error={errors?.media?.message}
-          onChange={(files) => setValue("media", files as any)}
+          onChange={(files) => setValue("media", files)}
         />
         <Controller
           name="category"
@@ -79,7 +114,8 @@ export const CreateProduct = () => {
 
         <TagContainer
           label="Tags"
-          onChange={(tags) => setValue("tags", tags as any)}
+          value={watch("tags")}
+          onChange={(tags) => setValue("tags", tags)}
         />
         <Button htmlType="submit">Submit</Button>
       </form>

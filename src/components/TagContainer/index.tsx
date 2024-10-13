@@ -6,11 +6,12 @@ import { FieldWrapper } from "../FieldWrapper";
 export const TagContainer = ({
   label,
   onChange,
+  value,
 }: {
   label: string;
   onChange: (tags: string[]) => void;
+  value?: string[];
 }) => {
-  const [tags, setTags] = useState<string[]>([]);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<InputRef>(null);
@@ -22,26 +23,22 @@ export const TagContainer = ({
   }, [inputVisible]);
 
   const handleClose = (removedTag: string) => {
-    const newTags = tags.filter((tag) => tag !== removedTag);
-    console.log(newTags);
-    setTags(newTags);
+    const newTags = value?.filter((tag) => tag !== removedTag);
+    onChange(newTags as string[]);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
-  const handleInputConfirm = () => {
-    if (inputValue && tags && tags.includes(inputValue)) {
-      setTags([...tags, inputValue]);
+  const handleInputConfirm = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    if (inputValue && !value?.includes(inputValue)) {
+      onChange([...(value || []), inputValue]);
     }
     setInputVisible(false);
     setInputValue("");
   };
-
-  useEffect(() => {
-    onChange(tags);
-  }, [onChange, tags]);
 
   return (
     <FieldWrapper label={label}>
@@ -50,11 +47,10 @@ export const TagContainer = ({
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        onBlur={handleInputConfirm}
         onPressEnter={handleInputConfirm}
       />
       <div>
-        {tags.map((tag) => (
+        {value?.map((tag) => (
           <Tag
             closable
             onClose={(e) => {

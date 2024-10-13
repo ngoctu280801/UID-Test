@@ -2,7 +2,7 @@ import { Select, Table, TablePaginationConfig, Tag } from "antd";
 import { useMemo } from "react";
 import styles from "./styles.module.scss";
 import { useQueryParams } from "../../hooks";
-import useFetchProducts from "../../hooks/useFetchProducts";
+import useProductApi from "../../hooks/useProductApi";
 
 const columns = [
   {
@@ -66,7 +66,7 @@ export const Products = () => {
     []
   );
 
-  const { products, error, loading } = useFetchProducts({
+  const { products, error, loading } = useProductApi({
     tags: (queryParams?.tags as string[]) || undefined,
   });
 

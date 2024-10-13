@@ -8,6 +8,6 @@ export const validationSchema = Yup.object().shape({
     .required("Please enter your pricing")
     .positive("Pricing must be a positive number"),
   category: Yup.string(),
-  tags: Yup.string(),
+  tags: Yup.array().of(Yup.string().required()),
   productType: Yup.string(),
 });

@@ -2,12 +2,20 @@ import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import {
+  addProductAsync,
   fetchProducts,
   ProductState,
   setProducts,
 } from "../../redux/productSlice";
+import { Product } from "../../interfaces";
 
-const useFetchProducts = ({ tags }: { tags?: string[] }): ProductState => {
+const useProductApi = ({
+  tags,
+}: {
+  tags?: string[];
+}): ProductState & {
+  addProduct: (newProduct: Product) => void;
+} => {
   const dispatch: AppDispatch = useDispatch();
 
   const { products, status, error, loading } = useSelector(
@@ -33,7 +41,17 @@ const useFetchProducts = ({ tags }: { tags?: string[] }): ProductState => {
       : products;
   }, [tags, products]);
 
-  return { products: filteredProducts, status, error, loading };
+  const addProduct = async (newProduct: Product) => {
+    await dispatch(addProductAsync(newProduct));
+  };
+
+  return {
+    products: [...filteredProducts].reverse(),
+    status,
+    error,
+    loading,
+    addProduct,
+  };
 };
 
-export default useFetchProducts;
+export default useProductApi;
