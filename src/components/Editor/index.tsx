@@ -1,14 +1,12 @@
 import { IAllProps, Editor as TinyEditor } from "@tinymce/tinymce-react";
 import { FieldWrapper } from "../FieldWrapper";
+import { IFieldProps } from "../../interfaces";
 
-export type TEditorProps = {
-  label: string;
-  error?: string;
-} & IAllProps;
+interface EditorProps extends IAllProps, IFieldProps {}
 
-export const Editor = ({ label, error, ...props }: TEditorProps) => {
+export const Editor = ({ label, error, required, ...props }: EditorProps) => {
   return (
-    <FieldWrapper label={label} error={error}>
+    <FieldWrapper label={label} error={error} required={required}>
       <TinyEditor
         apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
         init={{

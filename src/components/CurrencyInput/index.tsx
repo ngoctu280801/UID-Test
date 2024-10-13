@@ -1,19 +1,18 @@
 import Currency, { CurrencyInputProps } from "react-currency-input-field";
 import { FieldWrapper } from "../FieldWrapper";
 import styles from "./styles.module.scss";
+import { IFieldProps } from "../../interfaces";
 
-type TCurrencyInputProps = {
-  label: string;
-  error?: string;
-} & CurrencyInputProps;
+interface ICurrencyInputProps extends IFieldProps, CurrencyInputProps {}
 
 export const CurrencyInput = ({
   label,
   error,
+  required,
   ...props
-}: TCurrencyInputProps) => {
+}: ICurrencyInputProps) => {
   return (
-    <FieldWrapper label={label} error={error}>
+    <FieldWrapper label={label} error={error} required={required}>
       <Currency className={styles.currency} decimalsLimit={2} {...props} />
     </FieldWrapper>
   );

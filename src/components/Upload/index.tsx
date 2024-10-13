@@ -4,14 +4,13 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Image, Upload as UploadAntd } from "antd";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import { FieldWrapper } from "../FieldWrapper";
+import { IFieldProps } from "../../interfaces";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-type TUploadProps = {
-  label: string;
-  error?: string;
+interface IUploadProps extends IFieldProps {
   onChange: (files: UploadFile<File>[]) => void;
-};
+}
 
 const getBase64 = (file: FileType): Promise<string> =>
   new Promise((resolve) => {
@@ -20,7 +19,7 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onload = () => resolve(reader.result as string);
   });
 
-export const Upload = ({ label, onChange, error }: TUploadProps) => {
+export const Upload = ({ label, onChange, error, required }: IUploadProps) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -54,7 +53,7 @@ export const Upload = ({ label, onChange, error }: TUploadProps) => {
   };
   return (
     <>
-      <FieldWrapper label={label} error={error}>
+      <FieldWrapper label={label} error={error} required={required}>
         <UploadAntd
           listType="picture-card"
           fileList={fileList}

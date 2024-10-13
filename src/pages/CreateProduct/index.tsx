@@ -73,7 +73,12 @@ export const CreateProduct = () => {
           name="title"
           control={control}
           render={({ field }) => (
-            <Input label="Title" {...field} error={errors?.title?.message} />
+            <Input
+              label="Title"
+              {...field}
+              error={errors?.title?.message}
+              required
+            />
           )}
         />
         <Controller
@@ -85,6 +90,7 @@ export const CreateProduct = () => {
               value={field.value}
               onEditorChange={(content) => field.onChange(content)}
               error={errors?.description?.message}
+              required
             />
           )}
         />
@@ -93,6 +99,7 @@ export const CreateProduct = () => {
           label="Media"
           error={errors?.media?.message}
           onChange={(files) => setValue("media", files)}
+          required
         />
 
         <Controller
@@ -103,6 +110,7 @@ export const CreateProduct = () => {
               label="Pricing"
               onValueChange={field.onChange}
               error={errors?.pricing?.message}
+              required
             />
           )}
         />
@@ -117,7 +125,9 @@ export const CreateProduct = () => {
           value={watch("tags")}
           onChange={(tags) => setValue("tags", tags)}
         />
-        <Button htmlType="submit">Submit</Button>
+        <Button htmlType="submit" type="primary">
+          Submit
+        </Button>
       </form>
     </FormProvider>
   );

@@ -1,3 +1,7 @@
 .field-title {
   @apply font-semibold text-sm;
+
+  .required {
+    @apply text-red-500;
+  }
 }

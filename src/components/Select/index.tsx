@@ -1,11 +1,10 @@
 import { Select as SelectAntd, SelectProps } from "antd";
 import { FieldWrapper } from "../FieldWrapper";
+import { IFieldProps } from "../../interfaces";
 
-type TSelectProps = {
-  label: string;
-} & SelectProps;
+interface ISelectProps extends SelectProps, IFieldProps {}
 
-export const Select = ({ label, ...props }: TSelectProps) => {
+export const Select = ({ label, ...props }: ISelectProps) => {
   return (
     <FieldWrapper label={label}>
       <SelectAntd
