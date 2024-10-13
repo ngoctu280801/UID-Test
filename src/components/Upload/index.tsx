@@ -14,11 +14,10 @@ type TUploadProps = {
 };
 
 const getBase64 = (file: FileType): Promise<string> =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
   });
 
 export const Upload = ({ label, onChange, error }: TUploadProps) => {
@@ -51,7 +50,7 @@ export const Upload = ({ label, onChange, error }: TUploadProps) => {
     if (!isImage) {
       return;
     }
-    return isImage;
+    return false;
   };
   return (
     <>
