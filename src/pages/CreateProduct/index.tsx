@@ -1,5 +1,11 @@
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { Editor, Input, TagContainer, Upload } from "../../components";
+import {
+  CurrencyInput,
+  Editor,
+  Input,
+  TagContainer,
+  Upload,
+} from "../../components";
 
 import styles from "./styles.module.scss";
 import { Button } from "antd";
@@ -13,6 +19,7 @@ export const CreateProduct = () => {
     mode: "onChange",
     resolver: yupResolver(validationSchema),
   });
+  // Simulate loading
   const navigate = useNavigate();
   const { addProduct, loading } = useProductApi({});
 
@@ -91,10 +98,9 @@ export const CreateProduct = () => {
           name="pricing"
           control={control}
           render={({ field }) => (
-            <Input
+            <CurrencyInput
               label="Pricing"
-              type="number"
-              {...field}
+              onValueChange={field.onChange}
               error={errors?.pricing?.message}
             />
           )}
